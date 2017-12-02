@@ -1,0 +1,38 @@
+<h1>Search For A Flight</h1>
+
+<%= form_for(:flight, url: flights_path, method: :get) do |f| %>
+
+  <%= f.label :from_airport %>
+  <%= f.collection_select(:from_airport_id,
+                          Flight.all_departing_flights, 
+                          :id, :code,
+                          include_blank: "Any") %>
+
+  <%= f.label :to_airport %>
+  <%= f.collection_select(:to_airport_id,
+                          Flight.all_arriving_flights,
+                          :id, :code,
+                          include_blank: "Any") %>
+
+  <%= f.label :number_of_passengers %>
+  <%= f.select :number_of_passengers, (1..4).map {|n| [n,n]} %>
+
+  <%= f.label :departure_time %>
+  <%= f.collection_select(:departure_time,
+                          Flight.all,
+                          :departure_time, :departure_time,
+                          include_blank: "Any") %>
+
+  <%= f.submit "Find Flight!"  %>
+
+<% end %>
+
+<h2>Matching Flights</h2>
+<p><%=  @matching_flights.size %> flight(s) </p>
+
+<%= form_for(:booking, url: new_booking_path, method: :get) do |f| %>
+  <%= f.hidden_field :number_of_passengers, value: @number_of_passengers  %>
+  <%= render partial: @matching_flights, locals: {f: f} %>
+  <%= f.submit "Book Flight" %>
+<% end %>
+

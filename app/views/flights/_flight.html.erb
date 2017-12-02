@@ -1,0 +1,4 @@
+<%= radio_button_tag(:flight_id, flight.id) %>
+<%= label_tag(:picked_flight_label, "Flight #{flight.id}: From #{flight.from_airport.code} to #{flight.to_airport.code}; Departing #{flight.departure_time}") %>
+<br>
+

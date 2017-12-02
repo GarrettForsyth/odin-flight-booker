@@ -1,0 +1,26 @@
+<h1>Booking</h1>
+<h2> Flight <%= @flight.id %></h3>
+<h3> <%=  Airport.find(@flight.from_airport_id).code %> to
+     <%= Airport.find(@flight.to_airport_id).code %></h2>
+<h4> Departing at <%= @flight.departure_time %></h3>
+<h4> Booking for <%= @bookings.size %> passengers </h4>
+
+<%= form_for(:bookings, url: bookings_path) do |f| %>
+  <%= f.hidden_field :flight_id, value: @flight.id %>
+  <% @passengers.each_with_index do |passenger, i| %>
+    <ul>
+      
+      <%= f.fields_for "passengers[]", passenger do |pf| %>
+
+        <b> Passenger <%= i+1 %> : </b>
+        <%= pf.label :name %>
+        <%= pf.text_field :name %>
+
+        <%= pf.label :email %>
+        <%= pf.text_field :email %>
+
+      <% end %> 
+    </ul>
+  <% end %>
+  <%= submit_tag "Confirm Booking" %>
+<% end %>
