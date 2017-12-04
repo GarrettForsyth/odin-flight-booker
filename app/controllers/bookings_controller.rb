@@ -17,14 +17,17 @@ class BookingsController < ApplicationController
     if params[:bookings][:flight_id].present?
       params[:bookings][:passengers].each do |passenger|
         if passenger[:name].present? and passenger[:email].present?
-          logger.debug "TESSST  #{passenger}"
           p = Passenger.create!(passenger_params(passenger))
-          Booking.create!(flight: Flight.find(params[:bookings][:flight_id]),
+          b = Booking.create!(flight: Flight.find(params[:bookings][:flight_id]),
                           passenger: p)
+          
+          # Send a thank you for booking email
+
+          PassengerMailer.thank_you_email(b).deliver_now
         end
       end
     end
-    redirect_to bookings_path
+    #redirect_to bookings_path
   end
 
   def index

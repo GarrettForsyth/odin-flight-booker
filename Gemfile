@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'faker', '1.7.3'
+gem 'letter_opener', group: :development
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.3'

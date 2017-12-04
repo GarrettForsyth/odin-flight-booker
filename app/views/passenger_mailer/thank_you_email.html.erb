@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html'; charset="utf-8"; http-equiv='Content-Type'/>
+  </head>
+  <body>
+    <h1>Hello, <%= @passenger.name %></h1>
+    <p>
+      You have booked a flight: <br>
+      Flight <%= @flight.id %> From <%= @flight.from_airport.code %>    
+    to <%= @flight.to_airport.code %> <br>
+    Departing at <%= @flight.departure_time %>
+
+    </p>
+    <p></p>
+    <p></p>
+    <p>Thank you for using <a href="<%=@url%>" target="_blank">flight-booker</a>!</p>
+
+  </body>
+</html>
